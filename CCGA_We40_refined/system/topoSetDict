@@ -1,0 +1,68 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      extrudeProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    liqIn;
+        type    faceSet;
+        action  new;
+        source  patchToFace;
+        sourceInfo
+        {
+            name     "topInner";
+        }
+    }
+    {
+        name    liqIn;
+        type    faceSet;
+        action  subset;
+        source  cylinderToFace;
+        sourceInfo
+        {
+	    p1 (0 0 -0.001);
+	    p2 (0 0 0.001);
+	    radius 0.0015;
+        };
+    }
+
+    
+    {
+        name    gasIn;
+        type    faceSet;
+        action  new;
+        source  patchToFace;
+        sourceInfo
+        {
+            name     "topOuter";
+        }
+    }
+    {
+        name    gasIn;
+        type    faceSet;
+        action  subset;
+        source  cylinderToFace;
+        sourceInfo
+        {
+	    p1 (0 0 0.007);
+	    p2 (0 0 0.009);
+	    radius 0.007;
+        };
+    }
+
+);
+
+// ************************************************************************* //
